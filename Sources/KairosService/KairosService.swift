@@ -9,7 +9,7 @@ public struct Kairos: KairosProvider {
   
   let text = "Kairos Service is alive!"
   
-  let demoBaseUrlPath = "http://localhost:8081/api/v1"
+  let demoBaseUrlPath = "http://localhost:8090/api/v1"
   
   
   public init() {
