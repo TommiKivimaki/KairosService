@@ -37,10 +37,19 @@ public struct Kairos: KairosProvider {
 
 extension Kairos {
   
-  func getRequest(endpoint: String, on container: Container) throws -> Future<Response> {
+  private func process(_ response: Response) throws -> Response {
+    switch true {
+    case response.http.status.code == HTTPStatus.ok.code:
+      return response
+    default:
+      throw Abort(.internalServerError)
+    }
+  }
+  
+  private func getRequest(endpoint: String, on container: Container) throws -> Future<Response> {
     
-    let checkUrlPath = "\(demoBaseUrlPath)/\(endpoint)"
-    print(checkUrlPath)
+    let urlPath = "\(demoBaseUrlPath)/\(endpoint)"
+    print(urlPath)
     
     // Headers to send to remote API
     var headers: HTTPHeaders = [:]
@@ -50,7 +59,11 @@ extension Kairos {
     
     let client = try container.make(Client.self)
     
-    return client.get(checkUrlPath)
+    return client
+      .get(urlPath, headers: headers)
+      .map { response in
+        try self.process(response)
+    }
 
   }
   
