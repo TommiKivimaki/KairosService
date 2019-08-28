@@ -16,6 +16,10 @@ public struct Kairos: KairosProvider {
     
   }
 
+  public func textii(on container: Container) -> String {
+    return text
+  }
+  
   public func check(on container: Container) throws -> Future<Response> {
     return try getRequest(endpoint: "health/status", on: container)
   }
