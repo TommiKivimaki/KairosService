@@ -7,7 +7,7 @@ public protocol KairosProvider: Service {
 
 public struct Kairos: KairosProvider {
   
-  var text = "Hello, World!"
+  let text = "Kairos Service is alive!"
   
   let demoBaseUrlPath = "http://localhost:8081/api/v1"
   
@@ -16,7 +16,7 @@ public struct Kairos: KairosProvider {
     
   }
 
-  public func textii(on container: Container) -> String {
+  public func alive(on container: Container) -> String {
     return text
   }
   
@@ -32,6 +32,7 @@ extension Kairos {
   func getRequest(endpoint: String, on container: Container) throws -> Future<Response> {
     
     let checkUrlPath = "\(demoBaseUrlPath)/\(endpoint)"
+    print(checkUrlPath)
     
     let client = try container.make(Client.self)
     
