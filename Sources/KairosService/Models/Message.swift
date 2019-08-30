@@ -74,15 +74,10 @@ public extension Kairos {
     }
     
     public struct Tags: Content {
-//      public let badQuality: Bool
-//
-//      public init(badQuality: Bool = false) {
-//        self.badQuality = badQuality
-//      }
-      public let jsonString: String
-      
-      public init(jsonString: String) {
-        self.jsonString = jsonString
+      public let badQuality: Bool
+
+      public init(badQuality: Bool = false) {
+        self.badQuality = badQuality
       }
     }
   }
