@@ -12,6 +12,7 @@ public protocol KairosProvider: Service {
   func version(on container: Container) throws -> EventLoopFuture<Response>
   func getRollups(on container: Container) throws -> EventLoopFuture<Response>
   func queryMetrics(_ content: Kairos.Message, on container: Container) throws -> EventLoopFuture<Response>
+  func queryMetricTags(_ content: Kairos.Message, on container: Container) throws -> EventLoopFuture<Response>
 }
 
 public struct Kairos: KairosProvider {
@@ -63,6 +64,10 @@ public struct Kairos: KairosProvider {
   
   public func queryMetrics(_ content: Message, on container: Container) throws -> EventLoopFuture<Response> {
     return try postRequest(content, endpoint: "datapoints/query", on: container)
+  }
+  
+  public func queryMetricTags(_ content: Message, on container: Container) throws -> EventLoopFuture<Response> {
+    return try postRequest(content, endpoint: "datapoints/query/tags", on: container)
   }
 
 }
