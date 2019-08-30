@@ -39,22 +39,29 @@ public extension Kairos {
         self.aggregators = aggregators
       }
     }
-  }
-  
-  
-  // Aggregators
-  struct Aggregators: Content {
-    let aggregator: [Aggregator]
-  }
-  
-  struct Aggregator: Content {
-    let name: String
-    let sampling: Sampling
-  }
-  
-  struct Sampling: Content {
-    let value: Int
-    let unit: String
+    
+    
+    // Aggregators
+    public struct Aggregator: Content {
+      public let name: String
+      public let sampling: Sampling
+      
+      public init(name: String, sampling: Sampling) {
+        self.name = name
+        self.sampling = sampling
+      }
+    }
+    
+    public struct Sampling: Content {
+      public let value: Int
+      public let unit: String
+      
+      public init(value: Int, unit: String) {
+        self.value = value
+        self.unit = unit
+      }
+    }
+    
   }
   
 }
