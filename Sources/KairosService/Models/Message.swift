@@ -26,7 +26,8 @@ public extension Kairos {
     }
     
 
-    public init(startAbsolute: Int?, startRelative: Int?, endAbsolute: Int?, endRelative: Int?, metrics: [Metric]) {
+    public init(startAbsolute: Int? = nil, startRelative: Int? = nil,
+                endAbsolute: Int? = nil, endRelative: Int? = nil, metrics: [Metric]) {
       self.startAbsolute = startAbsolute
       self.endAbsolute = endAbsolute
       self.startRelative = startRelative
@@ -37,11 +38,11 @@ public extension Kairos {
     
     public struct Metric: Content {
       public let tags: String?
-      public let name: String
-      public let limit: Int
+      public let name: String?
+      public let limit: Int?
       public let aggregators: [Aggregator]?
       
-      public init(tags: String? = nil, name: String, limit: Int, aggregators: [Aggregator]?) {
+      public init(tags: String? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
         self.tags = tags
         self.name = name
         self.limit = limit
