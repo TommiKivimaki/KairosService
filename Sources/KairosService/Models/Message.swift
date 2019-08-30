@@ -11,21 +11,35 @@ import Vapor
 public extension Kairos {
   
   public struct Message: Content {
-    public let start_absolute: Int?
-    public let end_absolute: Int?
-    public let start_relative: Int?
-    public let end_relative: Int?
+    public let startAbsolute: Int?
+    public let endAbsolute: Int?
+    public let startRelative: Int?
+    public let endRelative: Int?
     public let metrics: [Metric]
     
-    //
-    public init(start_absolute: Int?, start_relative: Int?, end_absolute: Int?, end_relative: Int?, metrics: [Metric]) {
-      self.start_absolute = start_absolute
-      self.end_absolute = end_absolute
-      self.start_relative = start_relative
-      self.end_relative = end_relative
-      self.metrics = metrics
+    private enum CodingKeys: String, CodingKey {
+      case startAbsolute = "start_absolute"
+      case endAbsolute = "end_absolute"
+      case startRelative = "start_relative"
+      case endRelative = "end_relative"
+      case metrics
     }
     
+    //
+//    public init(start_absolute: Int?, start_relative: Int?, end_absolute: Int?, end_relative: Int?, metrics: [Metric]) {
+//      self.start_absolute = start_absolute
+//      self.end_absolute = end_absolute
+//      self.start_relative = start_relative
+//      self.end_relative = end_relative
+//      self.metrics = metrics
+//    }
+    public init(startAbsolute: Int?, startRelative: Int?, endAbsolute: Int?, endRelative: Int?, metrics: [Metric]) {
+      self.startAbsolute = startAbsolute
+      self.endAbsolute = endAbsolute
+      self.startRelative = startRelative
+      self.endRelative = endRelative
+      self.metrics = metrics
+    }
     
     
     public struct Metric: Content {
