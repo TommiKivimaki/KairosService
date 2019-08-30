@@ -3,10 +3,13 @@ import HTTP
 import Vapor
 
 public protocol KairosProvider: Service {
-  func healthStatus(on container: Container) throws -> Future<Response>
-  func healthCheck(on container: Container) throws -> Future<Response>
+  func healthStatus(on container: Container) throws -> EventLoopFuture<Response>
+  func healthCheck(on container: Container) throws -> EventLoopFuture<Response>
   func features(on container: Container) throws -> EventLoopFuture<Response>
-  func queryMetrics(_ content: Kairos.Message, on container: Container) throws -> Future<Response>
+  func metricNames(on container: Container) throws -> EventLoopFuture<Response>
+  func tagNames(on container: Container) throws -> EventLoopFuture<Response>
+  func tagValues(on container: Container) throws -> EventLoopFuture<Response>
+  func queryMetrics(_ content: Kairos.Message, on container: Container) throws -> EventLoopFuture<Response>
 }
 
 public struct Kairos: KairosProvider {
@@ -24,11 +27,11 @@ public struct Kairos: KairosProvider {
     return text
   }
   
-  public func healthStatus(on container: Container) throws -> Future<Response> {
+  public func healthStatus(on container: Container) throws -> EventLoopFuture<Response> {
     return try getRequest(endpoint: "health/status", on: container)
   }
   
-  public func healthCheck(on container: Container) throws -> Future<Response> {
+  public func healthCheck(on container: Container) throws -> EventLoopFuture<Response> {
     return try getRequest(endpoint: "health/check", on: container)
   }
   
@@ -36,7 +39,19 @@ public struct Kairos: KairosProvider {
     return try getRequest(endpoint: "features", on: container)
   }
   
-  public func queryMetrics(_ content: Message, on container: Container) throws -> Future<Response> {
+  public func metricNames(on container: Container) throws -> EventLoopFuture<Response> {
+    return try getRequest(endpoint: "metricnames", on: container)
+  }
+  
+  public func tagNames(on container: Container) throws -> EventLoopFuture<Response> {
+    return try getRequest(endpoint: "tagnames", on: container)
+  }
+  
+  public func tagValues(on container: Container) throws -> EventLoopFuture<Response> {
+    return try getRequest(endpoint: "tagvalues", on: container)
+  }
+  
+  public func queryMetrics(_ content: Message, on container: Container) throws -> EventLoopFuture<Response> {
     return try postRequest(content, endpoint: "datapoints/query", on: container)
   }
 
@@ -54,7 +69,7 @@ extension Kairos {
     }
   }
   
-  private func getRequest(endpoint: String, on container: Container) throws -> Future<Response> {
+  private func getRequest(endpoint: String, on container: Container) throws -> EventLoopFuture<Response> {
     let urlPath = "\(demoBaseUrlPath)/\(endpoint)"
     print(urlPath)
     
@@ -74,7 +89,7 @@ extension Kairos {
   }
   
   
-  private func postRequest(_ content: Message, endpoint: String, on container: Container) throws -> Future<Response> {
+  private func postRequest(_ content: Message, endpoint: String, on container: Container) throws -> EventLoopFuture<Response> {
     let urlPath = "\(demoBaseUrlPath)/\(endpoint)"
     print(urlPath)
     
