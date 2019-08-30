@@ -47,6 +47,7 @@ public extension Kairos {
       }
     }
     
+    // Structs for metrics
     
     // Aggregators
     public struct Aggregator: Content {
