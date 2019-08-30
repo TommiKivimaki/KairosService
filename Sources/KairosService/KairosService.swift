@@ -5,6 +5,7 @@ import Vapor
 public protocol KairosProvider: Service {
   func healthStatus(on container: Container) throws -> Future<Response>
   func healthCheck(on container: Container) throws -> Future<Response>
+  func features(on container: Container) throws -> EventLoopFuture<Response>
   func queryMetrics(_ content: Kairos.Message, on container: Container) throws -> Future<Response>
 }
 
@@ -29,6 +30,10 @@ public struct Kairos: KairosProvider {
   
   public func healthCheck(on container: Container) throws -> Future<Response> {
     return try getRequest(endpoint: "health/check", on: container)
+  }
+  
+  public func features(on container: Container) throws -> EventLoopFuture<Response> {
+    return try getRequest(endpoint: "features", on: container)
   }
   
   public func queryMetrics(_ content: Message, on container: Container) throws -> Future<Response> {
