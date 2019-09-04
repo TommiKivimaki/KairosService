@@ -115,7 +115,7 @@ extension Kairos {
     headers.add(name: .acceptEncoding, value: "deflate")
     
     let client = try container.make(Client.self)
-    
+
     return client
       .post(urlPath, headers: headers) { req in
         try req.content.encode(content)

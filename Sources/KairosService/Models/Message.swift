@@ -37,13 +37,14 @@ public extension Kairos {
     
     
     public struct Metric: Content {
-      public let tags: String?
+//      public let tags: String?
+      public let tags: [String:[String]]?
       public let name: String?
       public let limit: Int?
       public let aggregators: [Aggregator]?
       
 //      public init(tags: Tags? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
-      public init(tags: String? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
+      public init(tags: [String:[String]]? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
         self.tags = tags
         self.name = name
         self.limit = limit
@@ -51,7 +52,9 @@ public extension Kairos {
       }
     }
     
+    //
     // Structs for metrics
+    //
     
     // Aggregators
     public struct Aggregator: Content {
