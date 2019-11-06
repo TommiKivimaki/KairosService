@@ -25,7 +25,7 @@ public struct Kairos: KairosProvider {
   public init() {
     
   }
-
+  
   public func alive(on container: Container) -> String {
     return text
   }
@@ -69,15 +69,28 @@ public struct Kairos: KairosProvider {
   public func queryMetricTags(_ content: Message, on container: Container) throws -> EventLoopFuture<Response> {
     return try postRequest(content, endpoint: "datapoints/query/tags", on: container)
   }
-
+  
 }
 
 
 extension Kairos {
   
   private func process(_ response: Response) throws -> Response {
-    switch true {
-    case response.http.status.code == HTTPStatus.ok.code:
+    //    switch true {
+    //    case response.http.status.code == HTTPStatus.ok.code:
+    //      return response
+    //    case response.http.status.code == HTTPStatus.noContent.code:
+    //      return response
+    //    default:
+    //      throw Abort(.internalServerError)
+    //    }
+    
+    switch response.http.status.code {
+    case HTTPStatus.ok.code:
+      return response
+    case HTTPStatus.noContent.code:
+      return response
+    case HTTPStatus.badRequest.code:
       return response
     default:
       throw Abort(.internalServerError)
@@ -115,7 +128,7 @@ extension Kairos {
     headers.add(name: .acceptEncoding, value: "deflate")
     
     let client = try container.make(Client.self)
-
+    
     return client
       .post(urlPath, headers: headers) { req in
         try req.content.encode(content)

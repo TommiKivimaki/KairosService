@@ -13,8 +13,8 @@ public extension Kairos {
   public struct Message: Content {
     public let startAbsolute: Int?
     public let endAbsolute: Int?
-    public let startRelative: Int?
-    public let endRelative: Int?
+    public let startRelative: RelativeTime?
+    public let endRelative: RelativeTime?
     public let metrics: [Metric]
     
     private enum CodingKeys: String, CodingKey {
@@ -26,8 +26,8 @@ public extension Kairos {
     }
     
 
-    public init(startAbsolute: Int? = nil, startRelative: Int? = nil,
-                endAbsolute: Int? = nil, endRelative: Int? = nil, metrics: [Metric]) {
+    public init(startAbsolute: Int? = nil, startRelative: RelativeTime? = nil,
+                endAbsolute: Int? = nil, endRelative: RelativeTime? = nil, metrics: [Metric]) {
       self.startAbsolute = startAbsolute
       self.endAbsolute = endAbsolute
       self.startRelative = startRelative
@@ -36,25 +36,36 @@ public extension Kairos {
     }
     
     
+    public struct RelativeTime: Content {
+      public let value: String
+      public let unit: String
+    }
+    
+     
     public struct Metric: Content {
-//      public let tags: String?
       public let tags: [String:[String]]?
       public let name: String?
       public let limit: Int?
       public let aggregators: [Aggregator]?
+      public let groupBy: [GroupByTag]?
       
-//      public init(tags: Tags? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
-      public init(tags: [String:[String]]? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil) {
+      public init(tags: [String:[String]]? = nil, name: String? = nil, limit: Int? = nil, aggregators: [Aggregator]? = nil, groupBy: [GroupByTag]? = nil) {
         self.tags = tags
         self.name = name
         self.limit = limit
         self.aggregators = aggregators
+        self.groupBy = groupBy
       }
     }
     
     //
     // Structs for metrics
     //
+    
+    public struct GroupByTag: Content {
+      let name = "tag"
+      public let tags: [String]
+    }
     
     // Aggregators
     public struct Aggregator: Content {
