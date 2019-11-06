@@ -18,8 +18,6 @@ public protocol KairosProvider: Service {
 public struct Kairos: KairosProvider {
   
   let text = "Kairos Service is alive!"
-  
-//  let demoBaseUrlPath = "http://localhost:8090/api/v1"
   let dbPath: String
   
   
@@ -77,15 +75,6 @@ public struct Kairos: KairosProvider {
 extension Kairos {
   
   private func process(_ response: Response) throws -> Response {
-    //    switch true {
-    //    case response.http.status.code == HTTPStatus.ok.code:
-    //      return response
-    //    case response.http.status.code == HTTPStatus.noContent.code:
-    //      return response
-    //    default:
-    //      throw Abort(.internalServerError)
-    //    }
-    
     switch response.http.status.code {
     case HTTPStatus.ok.code:
       return response

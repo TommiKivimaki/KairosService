@@ -25,7 +25,7 @@ public extension Kairos {
       case metrics
     }
     
-
+    
     public init(startAbsolute: Int? = nil, startRelative: RelativeTime? = nil,
                 endAbsolute: Int? = nil, endRelative: RelativeTime? = nil, metrics: [Metric]) {
       self.startAbsolute = startAbsolute
@@ -36,12 +36,16 @@ public extension Kairos {
     }
     
     
+    //
+    // Sub-structs for constructing a Message
+    //
+    
     public struct RelativeTime: Content {
       public let value: String
       public let unit: String
     }
     
-     
+    
     public struct Metric: Content {
       public let tags: [String:[String]]?
       public let name: String?
@@ -59,7 +63,7 @@ public extension Kairos {
     }
     
     //
-    // Structs for metrics
+    // Sub-structs for metrics
     //
     
     public struct GroupByTag: Content {
@@ -67,7 +71,6 @@ public extension Kairos {
       public let tags: [String]
     }
     
-    // Aggregators
     public struct Aggregator: Content {
       public let name: String
       public let sampling: Sampling

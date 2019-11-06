@@ -17,7 +17,14 @@ final class KairosServiceTests: XCTestCase {
     ("testTagNames", testTagNames),
     ("testTagValues", testTagValues),
     ("testVersion", testVersion),
-    ("testRollups", testRollups)
+    ("testRollups", testRollups),
+    ("testAggregatorQuery", testAggregatorQuery),
+    ("testAbsoluteMetricQuery", testAbsoluteMetricQuery),
+    ("testRelativeMetricQuery", testRelativeMetricQuery),
+    ("testRelativeMetricQueryWithoutEndTime", testRelativeMetricQueryWithoutEndTime),
+    ("testAbsoluteMetricQueryFilteredByTags", testAbsoluteMetricQueryFilteredByTags),
+    ("testAbsoluteMetricQueryGroupedByTags", testAbsoluteMetricQueryGroupedByTags),
+    ("testQueryMetricTags", testQueryMetricTags)
   ]
   
   override func setUp() {
