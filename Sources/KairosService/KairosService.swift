@@ -19,11 +19,12 @@ public struct Kairos: KairosProvider {
   
   let text = "Kairos Service is alive!"
   
-  let demoBaseUrlPath = "http://localhost:8090/api/v1"
+//  let demoBaseUrlPath = "http://localhost:8090/api/v1"
+  let dbPath: String
   
   
-  public init() {
-    
+  public init(dbPath: String) {
+    self.dbPath = dbPath
   }
   
   public func alive(on container: Container) -> String {
@@ -98,7 +99,7 @@ extension Kairos {
   }
   
   private func getRequest(endpoint: String, on container: Container) throws -> EventLoopFuture<Response> {
-    let urlPath = "\(demoBaseUrlPath)/\(endpoint)"
+    let urlPath = "\(dbPath)/\(endpoint)"
     print(urlPath)
     
     // Headers to send to remote API
@@ -118,7 +119,7 @@ extension Kairos {
   
   
   private func postRequest(_ content: Message, endpoint: String, on container: Container) throws -> EventLoopFuture<Response> {
-    let urlPath = "\(demoBaseUrlPath)/\(endpoint)"
+    let urlPath = "\(dbPath)/\(endpoint)"
     print(urlPath)
     
     // Headers to send to remote API

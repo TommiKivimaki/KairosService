@@ -23,7 +23,7 @@ final class KairosServiceTests: XCTestCase {
   override func setUp() {
     let config = Config.default()
     var services = Services.default()
-    kairos = Kairos()
+    kairos = Kairos(dbPath: "http://localhost:8090/api/v1")
     services.register(kairos)
     
     app = try! Application(config: config, services: services)

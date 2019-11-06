@@ -13,7 +13,7 @@ extension XCTestCase {
   
   internal func container() throws -> Container {
     var services = Services.default()
-    services.register(Kairos(), as: Kairos.self)
+    services.register(Kairos(dbPath: "http://localhost:8090/api/v1"), as: Kairos.self)
     let worker = EmbeddedEventLoop()
     
     return BasicContainer(
